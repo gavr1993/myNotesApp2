@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">myNotesApp</string>
+    <string name="pinEnterText">Придумайте новый пин-код.</string>
+    <string name="pinHint">введите его сюда</string>
+    <string name="showSimbols">показывать символы</string>
+    <string name="save">сохранить</string>
+    <string name="newPinError">Пин-код должен состоять ровно из 4-х цифр!</string>
 </resources>
