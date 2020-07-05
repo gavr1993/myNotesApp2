@@ -10,11 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SplashActivity" />
-        <activity android:name=".PrefActivity">
+        <activity android:name=".PrefActivity" android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NotesActivity" />
+        <activity android:name=".PinEnterActivity" />
     </application>
 </manifest>

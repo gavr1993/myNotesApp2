@@ -5,4 +5,7 @@
     <string name="showSimbols">показывать символы</string>
     <string name="save">сохранить</string>
     <string name="newPinError">Пин-код должен состоять ровно из 4-х цифр!</string>
+    <string name="preferences">preferences</string>
+    <string name="pinEntPls">Введите пин:</string>
+    <string name="pinEntErr">Введен неверный пин-код, повторите попытку.</string>
 </resources>
