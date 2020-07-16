@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginBottom="36dp"
+        android:layout_weight="1"
         android:text="@string/pinEntPls"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -23,6 +24,7 @@
         android:id="@+id/placeholders"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <ImageView
@@ -102,7 +104,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="36dp"
-        android:layout_weight="1">
+        android:layout_weight="4">
 
         <Button
             android:id="@+id/btn1"
@@ -242,8 +244,9 @@
     <TextView
         android:id="@+id/pinErrTxt"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp" />
+        android:layout_marginEnd="18dp"
+        android:layout_weight="4" />
 
 </LinearLayout>
