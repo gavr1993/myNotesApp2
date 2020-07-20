@@ -6,13 +6,15 @@ public class Note {
     private String createDateTime;
     private String modifiedDateTime;
     private String id;
+    private String deadline;
 
-    public Note(String name, String body, String createDateTime, String modifiedDateTime, String id) {
+    public Note(String name, String body, String createDateTime, String modifiedDateTime, String id, String deadline) {
         this.name = name;
         this.body = body;
         this.createDateTime = createDateTime;
         this.modifiedDateTime = modifiedDateTime;
         this.id = id;
+        this.deadline = deadline;
     }
 
     public String getName() {
@@ -52,6 +54,13 @@ public class Note {
     }
 
     public void setId(String id) {
+        this.id = id;
+    }
+    public String getDeadline() {
+        return id;
+    }
+
+    public void setDeadline(String deadline) {
         this.id = id;
     }
 }

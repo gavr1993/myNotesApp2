@@ -20,5 +20,6 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".NotesActivity" />
         <activity android:name=".PinEnterActivity" />
+        <activity android:name=".NoteEditActivity" />
     </application>
 </manifest>
