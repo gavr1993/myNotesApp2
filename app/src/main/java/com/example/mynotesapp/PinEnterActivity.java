@@ -1,15 +1,14 @@
 package com.example.mynotesapp;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 public class PinEnterActivity extends AppCompatActivity {
+    private static final int PIN_LENGTH = 4;
     private Button btn1;
     private Button btn2;
     private Button btn3;
@@ -23,11 +22,9 @@ public class PinEnterActivity extends AppCompatActivity {
     private TextView pinErrTxt;
     private String enteredPin = "";
     private Keystore keystore;
-
     public void setKeystore(Keystore keystore) {
         this.keystore = keystore;
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +32,6 @@ public class PinEnterActivity extends AppCompatActivity {
         init();
         listen();
     }
-
     private void init() {
         btn1 = findViewById(R.id.btn1);
         btn2 = findViewById(R.id.btn2);
@@ -49,7 +45,6 @@ public class PinEnterActivity extends AppCompatActivity {
         btnDel = findViewById(R.id.btnDel);
         pinErrTxt = findViewById(R.id.pinErrTxt);
     }
-
     private void listen() {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +53,6 @@ public class PinEnterActivity extends AppCompatActivity {
                 entPinCheck(enteredPin);
             }
         });
-
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +109,6 @@ public class PinEnterActivity extends AppCompatActivity {
                 entPinCheck(enteredPin);
             }
         });
-
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,22 +116,20 @@ public class PinEnterActivity extends AppCompatActivity {
             }
         });
     }
-
     public static String delNum(String enteredPin) {
         return (enteredPin == null || enteredPin.length() == 0)
                 ? null
                 : (enteredPin.substring(0, enteredPin.length() - 1));
     }
-
-    public void entPinCheck(@org.jetbrains.annotations.NotNull String enteredPin) {
-        final int PIN_LENGTH = 4;
+    public void entPinCheck(@NonNull final String enteredPin) {
         if (enteredPin.length() == PIN_LENGTH) {
             if (keystore.checkPin(enteredPin)) {
-                Intent intent = new Intent(PinEnterActivity.this, NotesActivity.class);
+                Intent intent = new Intent(this, NotesActivity.class);
                 startActivity(intent);
+                finish();
             } else {
                 pinErrTxt.setText(R.string.pinEntErr);
-                enteredPin = "";
+                this.enteredPin = "";
             }
         }
     }

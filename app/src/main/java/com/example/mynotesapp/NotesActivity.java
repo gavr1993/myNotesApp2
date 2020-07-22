@@ -17,7 +17,7 @@ import java.util.List;
 
 public class NotesActivity extends AppCompatActivity {
     private Button noteAddBtn;
-    private List<Note> notes;
+    private List<Note> notes = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

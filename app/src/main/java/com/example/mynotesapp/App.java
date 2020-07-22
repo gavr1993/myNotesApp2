@@ -34,5 +34,6 @@ public class App extends Application {
     private void registerFactories() {
         factories.put(PrefActivity.class, new PrefActivityInjector(keystore));
         factories.put(SplashActivity.class, new SplashActivityInjector(keystore));
+        factories.put(PinEnterActivity.class, new PinEnterActivityInjector(keystore));
     }
 }
