@@ -1,0 +1,36 @@
+Index: app/src/main/java/com/example/mynotesapp/NotesActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/mynotesapp/NotesActivity.java	(date 1595278779965)
++++ app/src/main/java/com/example/mynotesapp/NotesActivity.java	(date 1595278779965)
+@@ -17,7 +17,7 @@
+ 
+ public class NotesActivity extends AppCompatActivity {
+     private Button noteAddBtn;
+-    private List<Note> notes = new ArrayList<>();
++    private List<Note> notes;
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+Index: app/build/generated/source/buildConfig/debug/com/example/mynotesapp/BuildConfig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build/generated/source/buildConfig/debug/com/example/mynotesapp/BuildConfig.java	(date 1595441297741)
++++ app/build/generated/source/buildConfig/debug/com/example/mynotesapp/BuildConfig.java	(date 1595441297741)
+@@ -0,0 +1,12 @@
++/**
++ * Automatically generated file. DO NOT MODIFY
++ */
++package com.example.mynotesapp;
++
++public final class BuildConfig {
++  public static final boolean DEBUG = Boolean.parseBoolean("true");
++  public static final String APPLICATION_ID = "com.example.mynotesapp";
++  public static final String BUILD_TYPE = "debug";
++  public static final int VERSION_CODE = 1;
++  public static final String VERSION_NAME = "1.0";
++}
