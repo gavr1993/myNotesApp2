@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,11 +15,7 @@ class NotesListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     NotesListAdapter(Context context, List<Note> notes) {
-        if (notes == null) {
-            this.notes = new ArrayList<>();
-        } else {
-            this.notes = notes;
-        }
+        this.notes = null;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -49,13 +50,16 @@
                 android:layout_weight="6"
                 android:ems="10"
                 android:hint="дата дедлайна"
-                android:inputType="date" />
+                android:inputType="date"
+                android:visibility="invisible"
+                tools:ignore="NestedWeights" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/dateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:visibility="invisible"
                 app:srcCompat="@android:drawable/ic_menu_today" />
         </LinearLayout>
 
