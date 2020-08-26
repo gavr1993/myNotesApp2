@@ -15,7 +15,7 @@ class NotesListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     NotesListAdapter(Context context, List<Note> notes) {
-        this.notes = null;
+       this.notes = notes;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

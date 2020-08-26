@@ -1,5 +1,6 @@
 package com.example.mynotesapp;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,16 +8,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class NoteEditActivity extends AppCompatActivity {
-    private List<Note> notes;
+    public List<Note> notes;
     private EditText head;
     private EditText body;
     private EditText deadline;
@@ -63,6 +66,29 @@ public class NoteEditActivity extends AppCompatActivity {
             }
         });
 
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePick();
+            }
+        });
+
+    }
+
+    private void datePick() {
+        Calendar todayCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener onDateSet = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            }
+        };
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                onDateSet,
+                todayCalendar.get(Calendar.YEAR),
+                todayCalendar.get(Calendar.MONTH),
+                todayCalendar.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
     }
 
     private void createNote() {
@@ -77,7 +103,7 @@ public class NoteEditActivity extends AppCompatActivity {
         String modifiedDateTime = date.toString();
         String deadlineDate = String.valueOf(deadline.getText());
         Note note = new Note(name, createDateTime, text, modifiedDateTime, id, deadlineDate);
-        NotesListAdapter.addNote(note);
+
     }
 
     @Override
