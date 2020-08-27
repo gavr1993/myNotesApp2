@@ -1,5 +1,6 @@
 package com.example.mynotesapp;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,6 +82,7 @@ public class NoteEditActivity extends AppCompatActivity {
     private void datePick() {
         Calendar todayCalendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener onDateSet = new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 deadlineDate.setText(dayOfMonth + "." + month + "." + year);
