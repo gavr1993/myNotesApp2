@@ -28,6 +28,12 @@ class NotesListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    void setNotes(List<Note> notes) {
+        this.notes.clear();
+        this.notes.addAll(notes);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return notes.size();

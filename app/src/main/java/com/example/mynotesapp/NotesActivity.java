@@ -11,20 +11,28 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NotesActivity extends AppCompatActivity {
     private ImageButton noteAddBtn;
-    private List<Note> notes = new ArrayList<>();
+    private NoteRepository noteRepository;
+    private NotesListAdapter adapter;
+
+    public void setNoteRepository(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         final ListView notesList = findViewById(R.id.notesList);
-        NotesListAdapter adapter = new NotesListAdapter(this, null);
+        adapter = new NotesListAdapter(this, null);
         notesList.setAdapter(adapter);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.setNotes(noteRepository.getNotes());
     }
 
     @Override
