@@ -12,6 +12,7 @@ public class App extends Application {
     @SuppressWarnings("rawtypes")
     private Map<Type, Injector> factories = new HashMap<>();
     private Keystore keystore;
+    private NoteRepository repository;
     private ActivityLifecycleCallbacks activityLifecycleCallbacks = new DefaultActivityLifecycleCallbacks() {
         @Override
         public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         keystore = new SimpleKeystore(getSharedPreferences("keystore", Context.MODE_PRIVATE));
+        repository = new SimpleNoteRepository();
         registerFactories();
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
     }
@@ -35,5 +37,7 @@ public class App extends Application {
         factories.put(PrefActivity.class, new PrefActivityInjector(keystore));
         factories.put(SplashActivity.class, new SplashActivityInjector(keystore));
         factories.put(PinEnterActivity.class, new PinEnterActivityInjector(keystore));
+        factories.put(NotesActivity.class, new NotesActivityInjector(repository));
+        factories.put(NoteEditActivity.class, new NotesEditActivityInjector(repository));
     }
 }
