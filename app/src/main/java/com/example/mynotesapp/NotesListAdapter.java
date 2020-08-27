@@ -14,7 +14,6 @@ import java.util.List;
 class NotesListAdapter extends BaseAdapter {
     private List<Note> notes;
     private LayoutInflater inflater;
-
     NotesListAdapter(Context context, List<Note> notes) {
         if (notes == null) {
             this.notes = new ArrayList<>();
@@ -25,7 +24,7 @@ class NotesListAdapter extends BaseAdapter {
     }
 
     void addNote(Note note) {
-        this.notes.add(note);
+        notes.add(note);
         notifyDataSetChanged();
     }
 

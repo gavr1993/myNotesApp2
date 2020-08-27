@@ -14,12 +14,13 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class NoteEditActivity extends AppCompatActivity {
-    public List<Note> notes;
+    public List<Note> notes = new ArrayList<>();
     private EditText head;
     private EditText body;
     private EditText deadline;
@@ -103,7 +104,8 @@ public class NoteEditActivity extends AppCompatActivity {
         String modifiedDateTime = date.toString();
         String deadlineDate = String.valueOf(deadline.getText());
         Note note = new Note(name, createDateTime, text, modifiedDateTime, id, deadlineDate);
-
+        NotesListAdapter notesListAdapter = new NotesListAdapter(this, notes);
+        notesListAdapter.addNote(note);
     }
 
     @Override
