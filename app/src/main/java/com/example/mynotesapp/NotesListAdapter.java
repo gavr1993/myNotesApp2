@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 class NotesListAdapter extends BaseAdapter {
     private List<Note> notes;
     private LayoutInflater inflater;
+
     NotesListAdapter(Context context, List<Note> notes) {
         if (notes == null) {
             this.notes = new ArrayList<>();
@@ -57,12 +59,18 @@ class NotesListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = inflater.inflate(R.layout.note, parent, false);
+            view = inflater.inflate(R.layout.note_preview, parent, false);
         }
         final Note note = notes.get(position);
         EditText head = view.findViewById(R.id.head);
-        EditText body = view.findViewById(R.id.body);
-        EditText deadline = view.findViewById(R.id.deadline);
+        EditText body = view.findViewById(R.id.text);
+        EditText deadline = view.findViewById(R.id.deadlineDate);
+        TextView namePrw = view.findViewById(R.id.namePrw);
+        TextView bodyPrw = view.findViewById(R.id.bodyPrw);
+        TextView deadlinePrw = view.findViewById(R.id.deadlinePrw);
+        namePrw.setText(note.getName());
+        bodyPrw.setText(note.getBody());
+        deadlinePrw.setText(note.getDeadline());
         return view;
     }
 }

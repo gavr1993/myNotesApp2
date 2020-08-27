@@ -20,8 +20,8 @@ import java.util.Date;
 public class NoteEditActivity extends AppCompatActivity {
     private NoteRepository noteRepository;
     private EditText head;
-    private EditText body;
-    private EditText deadline;
+    private EditText text;
+    private EditText deadlineDate;
     private CheckBox checkBox;
     private ImageButton dateBtn;
     int counter = 1;
@@ -49,10 +49,10 @@ public class NoteEditActivity extends AppCompatActivity {
 
     private void init() {
         head = findViewById(R.id.head);
-        body = findViewById(R.id.body);
+        text = findViewById(R.id.text);
         checkBox = findViewById(R.id.checkBox);
         dateBtn = findViewById(R.id.dateBtn);
-        deadline = findViewById(R.id.deadline);
+        deadlineDate = findViewById(R.id.deadlineDate);
     }
 
     private void listen() {
@@ -61,10 +61,10 @@ public class NoteEditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (checkBox.isChecked()) {
                     dateBtn.setVisibility(View.VISIBLE);
-                    deadline.setVisibility(View.VISIBLE);
+                    deadlineDate.setVisibility(View.VISIBLE);
                 } else {
                     dateBtn.setVisibility(View.INVISIBLE);
-                    deadline.setVisibility(View.INVISIBLE);
+                    deadlineDate.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -83,6 +83,7 @@ public class NoteEditActivity extends AppCompatActivity {
         DatePickerDialog.OnDateSetListener onDateSet = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                deadlineDate.setText(dayOfMonth + "." + month + "." + year);
             }
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -97,15 +98,13 @@ public class NoteEditActivity extends AppCompatActivity {
     private void createNote() {
         String name = String.valueOf(head.getText());
         Date date = new Date();
-        String text = String.valueOf(body.getText());
-
+        String body = String.valueOf(text.getText());
         createDateTime = date.toString();
         modifiedDateTime = createDateTime;
         String id = counter + "";
-        counter++;
         String modifiedDateTime = date.toString();
-        String deadlineDate = String.valueOf(deadline.getText());
-        Note note = new Note(name, createDateTime, text, modifiedDateTime, id, deadlineDate);
+        String deadline = String.valueOf(deadlineDate.getText());
+        Note note = new Note(name, body, createDateTime, modifiedDateTime, id, deadline);
         noteRepository.saveNote(note);
     }
 
@@ -113,6 +112,7 @@ public class NoteEditActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.save) {
             createNote();
+            counter++;
             Intent intent = new Intent(NoteEditActivity.this, NotesActivity.class);
             startActivity(intent);
             return true;

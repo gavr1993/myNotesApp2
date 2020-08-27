@@ -57,11 +57,11 @@ public class Note {
         this.id = id;
     }
     public String getDeadline() {
-        return id;
+        return deadline;
     }
 
     public void setDeadline(String deadline) {
-        this.id = id;
+        this.deadline = deadline;
     }
 }
 

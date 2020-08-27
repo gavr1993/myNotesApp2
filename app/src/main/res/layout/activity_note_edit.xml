@@ -22,7 +22,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/body"
+            android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ellipsize="none"
@@ -44,7 +44,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/deadline"
+                android:id="@+id/deadlineDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
