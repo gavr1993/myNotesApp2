@@ -45,8 +45,10 @@ public class NoteEditActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.save, menu);
+        inflater.inflate(R.menu.back, menu);
         return true;
     }
+
 
     private void init() {
         head = findViewById(R.id.head);
@@ -54,6 +56,10 @@ public class NoteEditActivity extends AppCompatActivity {
         checkBox = findViewById(R.id.checkBox);
         dateBtn = findViewById(R.id.dateBtn);
         deadlineDate = findViewById(R.id.deadlineDate);
+        Intent intent = getIntent();
+        head.setText(intent.getStringExtra("headExtr"));
+        text.setText(intent.getStringExtra("textExtr"));
+        deadlineDate.setText(intent.getStringExtra("deadlineDateExtr"));
     }
 
     private void listen() {
@@ -76,7 +82,6 @@ public class NoteEditActivity extends AppCompatActivity {
                 datePick();
             }
         });
-
     }
 
     private void datePick() {
@@ -112,13 +117,19 @@ public class NoteEditActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.save) {
-            createNote();
-            counter++;
-            Intent intent = new Intent(NoteEditActivity.this, NotesActivity.class);
-            startActivity(intent);
-            return true;
+        switch (item.getItemId()) {
+            case R.id.save:
+                createNote();
+                counter++;
+                Intent intent = new Intent(NoteEditActivity.this, NotesActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.back:
+                Intent intent2 = new Intent(NoteEditActivity.this, NotesActivity.class);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }

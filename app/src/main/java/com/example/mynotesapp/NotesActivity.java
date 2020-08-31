@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -27,6 +28,17 @@ public class NotesActivity extends AppCompatActivity {
         final ListView notesList = findViewById(R.id.notesList);
         adapter = new NotesListAdapter(this, null);
         notesList.setAdapter(adapter);
+        notesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Note note = adapter.getItem(position);
+                Intent intent = new Intent(NotesActivity.this, NoteEditActivity.class);
+                intent.putExtra("headExtr", note.getName());
+                intent.putExtra("textExtr", note.getBody());
+                intent.putExtra("deadlineDateExtr", note.getDeadline());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -68,6 +68,15 @@ class NotesListAdapter extends BaseAdapter {
         TextView namePrw = view.findViewById(R.id.namePrw);
         TextView bodyPrw = view.findViewById(R.id.bodyPrw);
         TextView deadlinePrw = view.findViewById(R.id.deadlinePrw);
+        if (note.getName().equals("")) {
+            namePrw.setVisibility(View.GONE);
+        }
+        if (note.getBody().equals("")) {
+            bodyPrw.setVisibility(View.GONE);
+        }
+        if (note.getDeadline().equals("")) {
+            deadlinePrw.setVisibility(View.GONE);
+        }
         namePrw.setText(note.getName());
         bodyPrw.setText(note.getBody());
         deadlinePrw.setText(note.getDeadline());

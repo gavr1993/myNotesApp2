@@ -12,7 +12,9 @@
             android:id="@+id/namePrw"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:ellipsize="end"
             android:ems="10"
+            android:maxLines="1"
             android:textAlignment="viewStart"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -21,9 +23,9 @@
             android:id="@+id/bodyPrw"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:ellipsize="none"
+            android:ellipsize="end"
             android:ems="10"
-            android:lines="3" />
+            android:maxLines="3" />
 
         <TextView
             android:id="@+id/deadlinePrw"

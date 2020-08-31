@@ -8,4 +8,6 @@
     <string name="preferences">preferences</string>
     <string name="pinEntPls">Введите пин:</string>
     <string name="pinEntErr">Введен неверный пин-код, повторите попытку.</string>
+    <string name="save2">save</string>
+    <string name="back">back</string>
 </resources>
