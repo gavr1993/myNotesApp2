@@ -30,6 +30,10 @@ class NotesListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    void delNote(Note note) {
+        notes.remove(note);
+    }
+
     void setNotes(List<Note> notes) {
         this.notes.clear();
         this.notes.addAll(notes);

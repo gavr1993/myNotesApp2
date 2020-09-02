@@ -10,4 +10,6 @@
     <string name="pinEntErr">Введен неверный пин-код, повторите попытку.</string>
     <string name="save2">save</string>
     <string name="back">back</string>
+    <string name="delNote">Удаление заметки</string>
+    <string name="delDialog">Удалить заметку?</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.example.mynotesapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +13,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 public class NotesActivity extends AppCompatActivity {
     private ImageButton noteAddBtn;
@@ -28,6 +33,13 @@ public class NotesActivity extends AppCompatActivity {
         final ListView notesList = findViewById(R.id.notesList);
         adapter = new NotesListAdapter(this, null);
         notesList.setAdapter(adapter);
+        Collections.sort(noteRepository.getNotes(), new Comparator<Note>() {
+            @Override
+            public int compare(Note note1, Note note2) {
+                return note1.getDeadline().compareTo(note2.getDeadline());
+            }
+        });
+        adapter.notifyDataSetChanged();
         notesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -37,6 +49,31 @@ public class NotesActivity extends AppCompatActivity {
                 intent.putExtra("textExtr", note.getBody());
                 intent.putExtra("deadlineDateExtr", note.getDeadline());
                 startActivity(intent);
+            }
+        });
+
+        notesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Note note = adapter.getItem(position);
+                AlertDialog.Builder delDialog = new AlertDialog.Builder(NotesActivity.this);
+                delDialog.setTitle(R.string.delNote);
+                delDialog.setIcon(R.drawable.delete);
+                delDialog.setMessage(R.string.delDialog);
+                delDialog.setPositiveButton("ДА", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        noteRepository.deleteById(String.valueOf(note.getId()));
+                        adapter.delNote(note);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                delDialog.setNegativeButton("НЕТ", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                delDialog.show();
+                return true;
             }
         });
     }
