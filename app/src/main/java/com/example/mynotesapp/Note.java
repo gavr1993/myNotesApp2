@@ -1,5 +1,16 @@
 package com.example.mynotesapp;
 
+
+import android.annotation.SuppressLint;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.text.ParseException;
+import java.util.Date;
+
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class Note {
     private String name;
     private String body;
@@ -8,6 +19,9 @@ public class Note {
     private String id;
     private String deadline;
 
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
     public Note(String name, String body, String createDateTime, String modifiedDateTime, String id, String deadline) {
         this.name = name;
         this.body = body;
@@ -15,6 +29,14 @@ public class Note {
         this.modifiedDateTime = modifiedDateTime;
         this.id = id;
         this.deadline = deadline;
+    }
+
+    public Date getDeadlineDate() throws ParseException {
+        return dateFormat.parse(deadline);
+    }
+
+    public Date getModifiedDate() throws ParseException {
+        return dateFormat.parse(modifiedDateTime);
     }
 
     public String getName() {
@@ -56,6 +78,7 @@ public class Note {
     public void setId(String id) {
         this.id = id;
     }
+
     public String getDeadline() {
         return deadline;
     }

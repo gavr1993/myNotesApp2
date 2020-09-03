@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -34,9 +35,20 @@ public class NotesActivity extends AppCompatActivity {
         adapter = new NotesListAdapter(this, null);
         notesList.setAdapter(adapter);
         Collections.sort(noteRepository.getNotes(), new Comparator<Note>() {
+
             @Override
             public int compare(Note note1, Note note2) {
-                return note1.getDeadline().compareTo(note2.getDeadline());
+                try {
+                    int compRes = note1.getDeadlineDate().compareTo(note2.getDeadlineDate());
+                    if (compRes == 0) {
+                        return note1.getCreateDateTime().compareTo(note2.getCreateDateTime());
+                    }
+                    return note1.getDeadlineDate() == null ? -1 : note2.getDeadlineDate() ==
+                            null ? 1 : note1.getDeadlineDate().compareTo(note2.getDeadlineDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 0;
             }
         });
         adapter.notifyDataSetChanged();
