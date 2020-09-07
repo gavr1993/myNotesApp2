@@ -1,6 +1,7 @@
 package com.example.mynotesapp;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 public class FileNoteRepository implements NoteRepository {
 
     private List<Note> notes = new ArrayList<>();
+    static App app;
 
     @Override
     public Note getNoteById(String id) {
@@ -41,7 +43,10 @@ public class FileNoteRepository implements NoteRepository {
     }
 
     void saveNotesToFile(List<Note> notes) {
+        File notesDir = new File(app.getFilesDir(), "notesDir");
+        notesDir.mkdir();
         for (Note note : notes) {
+            File notesFile = new File(notesDir, note.getId());
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(note.getId(), true))) {
                 writer.write(note.getName());
                 writer.newLine();
