@@ -52,6 +52,8 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
         adapter.notifyDataSetChanged();
+        FileNoteRepository repFile = new FileNoteRepository();
+        repFile.saveNotesToFile(noteRepository.getNotes());
         notesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -1,10 +1,13 @@
 package com.example.mynotesapp;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +32,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         keystore = new SimpleKeystore(getSharedPreferences("keystore", Context.MODE_PRIVATE));
-        repository = new SimpleNoteRepository();
+        repository = new FileNoteRepository();
         registerFactories();
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
     }
