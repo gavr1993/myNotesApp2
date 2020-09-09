@@ -17,16 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
-
 public class NotesActivity extends AppCompatActivity {
     private ImageButton noteAddBtn;
     private NoteRepository noteRepository;
     private NotesListAdapter adapter;
-
     public void setNoteRepository(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +32,6 @@ public class NotesActivity extends AppCompatActivity {
         adapter = new NotesListAdapter(this, null);
         notesList.setAdapter(adapter);
         Collections.sort(noteRepository.getNotes(), new Comparator<Note>() {
-
             @Override
             public int compare(Note note1, Note note2) {
                 try {
@@ -52,8 +48,6 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
         adapter.notifyDataSetChanged();
-        FileNoteRepository repFile = new FileNoteRepository();
-        repFile.saveNotesToFile(noteRepository.getNotes());
         notesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -65,7 +59,6 @@ public class NotesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         notesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -91,13 +84,11 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onStart() {
         super.onStart();
         adapter.setNotes(noteRepository.getNotes());
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -106,7 +97,6 @@ public class NotesActivity extends AppCompatActivity {
         fabListen();
         return true;
     }
-
     private void fabListen() {
         noteAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,11 +106,9 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
     }
-
     private void init() {
         noteAddBtn = findViewById(R.id.noteAddBtn);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.settings) {

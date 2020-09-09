@@ -1,5 +1,7 @@
 package com.example.mynotesapp;
 
+import android.content.Context;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -8,9 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileNoteRepository implements NoteRepository {
-
     private List<Note> notes = new ArrayList<>();
-    static App app;
+    private Context context;
+
+    public FileNoteRepository(Context context) {
+        this.context = context;
+        loadFromFiles();
+    }
 
     @Override
     public Note getNoteById(String id) {
@@ -19,7 +25,6 @@ public class FileNoteRepository implements NoteRepository {
                 return note;
             }
         }
-
         return null;
     }
 
@@ -27,7 +32,6 @@ public class FileNoteRepository implements NoteRepository {
     public List<Note> getNotes() {
         return notes;
     }
-
     @Override
     public void saveNote(Note note) {
         notes.add(note);
@@ -42,8 +46,12 @@ public class FileNoteRepository implements NoteRepository {
         }
     }
 
+    private void loadFromFiles() {
+
+    }
+
     void saveNotesToFile(List<Note> notes) {
-        File notesDir = new File(app.getFilesDir(), "notesDir");
+        File notesDir = new File(context.getFilesDir(), "notesDir");
         notesDir.mkdir();
         for (Note note : notes) {
             File notesFile = new File(notesDir, note.getId());

@@ -32,7 +32,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         keystore = new SimpleKeystore(getSharedPreferences("keystore", Context.MODE_PRIVATE));
-        repository = new FileNoteRepository();
+        repository = new FileNoteRepository(this);
         registerFactories();
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
     }
