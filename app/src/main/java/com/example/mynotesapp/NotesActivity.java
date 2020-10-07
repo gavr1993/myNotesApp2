@@ -17,13 +17,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
+
 public class NotesActivity extends AppCompatActivity {
     private ImageButton noteAddBtn;
-    private NoteRepository noteRepository;
+    private FileNoteRepository fileNoteRepository;
     private NotesListAdapter adapter;
-    public void setNoteRepository(NoteRepository noteRepository) {
-        this.noteRepository = noteRepository;
+
+    public void setNoteRepository(FileNoteRepository fileNoteRepository) {
+        this.fileNoteRepository = fileNoteRepository;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,7 @@ public class NotesActivity extends AppCompatActivity {
         final ListView notesList = findViewById(R.id.notesList);
         adapter = new NotesListAdapter(this, null);
         notesList.setAdapter(adapter);
-        Collections.sort(noteRepository.getNotes(), new Comparator<Note>() {
+        Collections.sort(fileNoteRepository.getNotes(), new Comparator<Note>() {
             @Override
             public int compare(Note note1, Note note2) {
                 try {
@@ -69,7 +72,7 @@ public class NotesActivity extends AppCompatActivity {
                 delDialog.setMessage(R.string.delDialog);
                 delDialog.setPositiveButton("ДА", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        noteRepository.deleteById(String.valueOf(note.getId()));
+                        fileNoteRepository.deleteById(String.valueOf(note.getId()));
                         adapter.delNote(note);
                         adapter.notifyDataSetChanged();
                     }
@@ -84,11 +87,13 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.setNotes(noteRepository.getNotes());
+        adapter.setNotes(fileNoteRepository.getNotes());
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -97,6 +102,7 @@ public class NotesActivity extends AppCompatActivity {
         fabListen();
         return true;
     }
+
     private void fabListen() {
         noteAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,9 +112,11 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
     }
+
     private void init() {
         noteAddBtn = findViewById(R.id.noteAddBtn);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.settings) {

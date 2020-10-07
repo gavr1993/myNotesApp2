@@ -15,7 +15,7 @@ public class App extends Application {
     @SuppressWarnings("rawtypes")
     private Map<Type, Injector> factories = new HashMap<>();
     private Keystore keystore;
-    private NoteRepository repository;
+    private FileNoteRepository repository;
     private ActivityLifecycleCallbacks activityLifecycleCallbacks = new DefaultActivityLifecycleCallbacks() {
         @Override
         public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {

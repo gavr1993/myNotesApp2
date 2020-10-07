@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class NoteEditActivity extends AppCompatActivity {
-    private NoteRepository noteRepository;
+    private FileNoteRepository fileNoteRepository;
     private EditText head;
     private EditText text;
     private EditText deadlineDate;
@@ -29,8 +29,8 @@ public class NoteEditActivity extends AppCompatActivity {
     String createDateTime;
     String modifiedDateTime;
 
-    public void setNoteRepository(NoteRepository noteRepository) {
-        this.noteRepository = noteRepository;
+    public void setNoteRepository(FileNoteRepository fileNoteRepository) {
+        this.fileNoteRepository = fileNoteRepository;
     }
 
     @Override
@@ -112,7 +112,7 @@ public class NoteEditActivity extends AppCompatActivity {
         String modifiedDateTime = date.toString();
         String deadline = String.valueOf(deadlineDate.getText());
         Note note = new Note(name, body, createDateTime, modifiedDateTime, id, deadline);
-        noteRepository.saveNote(note);
+        fileNoteRepository.saveNote(note);
     }
 
     @Override

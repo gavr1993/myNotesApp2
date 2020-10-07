@@ -2,8 +2,10 @@ package com.example.mynotesapp;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +17,9 @@ public class FileNoteRepository implements NoteRepository {
 
     public FileNoteRepository(Context context) {
         this.context = context;
-        loadFromFiles();
+        File notesDir = new File(context.getFilesDir(), "notesDir");
+        notesDir.mkdir();
+        loadFromFiles(notesDir);
     }
 
     @Override
@@ -46,13 +50,26 @@ public class FileNoteRepository implements NoteRepository {
         }
     }
 
-    private void loadFromFiles() {
-
+    private void loadFromFiles(File notesDir) {
+        final File[] files = notesDir.listFiles();
+        if (files == null || files.length == 0) {
+            return;
+        }
+        for (File file : files) {
+            try (final BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+                final String name = bufferedReader.readLine();
+                final String deadline = bufferedReader.readLine();
+                final String body = bufferedReader.readLine();
+                final String createdDate = bufferedReader.readLine();
+                final String modifiedDate = bufferedReader.readLine();
+                notes.add(new Note(name, body, createdDate, modifiedDate, file.getName(), deadline));
+            } catch (IOException e) {
+                // noop
+            }
+        }
     }
 
-    void saveNotesToFile(List<Note> notes) {
-        File notesDir = new File(context.getFilesDir(), "notesDir");
-        notesDir.mkdir();
+    void saveNotesToFile(List<Note> notes, File notesDir) {
         for (Note note : notes) {
             File notesFile = new File(notesDir, note.getId());
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(note.getId(), true))) {

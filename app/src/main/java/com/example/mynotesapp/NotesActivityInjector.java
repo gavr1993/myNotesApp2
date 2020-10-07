@@ -2,9 +2,9 @@ package com.example.mynotesapp;
 
 public class NotesActivityInjector implements Injector<NotesActivity> {
 
-    private NoteRepository repository;
+    private FileNoteRepository repository;
 
-    public NotesActivityInjector(NoteRepository repository) {
+    public NotesActivityInjector(FileNoteRepository repository) {
         this.repository = repository;
     }
 
