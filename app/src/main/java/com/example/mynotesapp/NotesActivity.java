@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class NotesActivity extends AppCompatActivity {
     private ImageButton noteAddBtn;
@@ -34,28 +36,12 @@ public class NotesActivity extends AppCompatActivity {
         final ListView notesList = findViewById(R.id.notesList);
         adapter = new NotesListAdapter(this, null);
         notesList.setAdapter(adapter);
-        Collections.sort(fileNoteRepository.getNotes(), new Comparator<Note>() {
-            @Override
-            public int compare(Note note1, Note note2) {
-                try {
-                    int compRes = note1.getDeadlineDate().compareTo(note2.getDeadlineDate());
-                    if (compRes == 0) {
-                        return note1.getCreateDateTime().compareTo(note2.getCreateDateTime());
-                    }
-                    return note1.getDeadlineDate() == null ? -1 : note2.getDeadlineDate() ==
-                            null ? 1 : note1.getDeadlineDate().compareTo(note2.getDeadlineDate());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return 0;
-            }
-        });
-        adapter.notifyDataSetChanged();
         notesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Note note = adapter.getItem(position);
                 Intent intent = new Intent(NotesActivity.this, NoteEditActivity.class);
+                intent.putExtra("idExtr", note.getId());
                 intent.putExtra("headExtr", note.getName());
                 intent.putExtra("textExtr", note.getBody());
                 intent.putExtra("deadlineDateExtr", note.getDeadline());
@@ -91,7 +77,36 @@ public class NotesActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.setNotes(fileNoteRepository.getNotes());
+        final List<Note> notes = fileNoteRepository.getNotes();
+        Collections.sort(notes, new Comparator<Note>() {
+            @Override
+            public int compare(Note note1, Note note2) {
+                if (TextUtils.isEmpty(note1.getDeadline()) && !TextUtils.isEmpty(note2.getDeadline())) {
+                    return 1;
+                }
+
+                if (!TextUtils.isEmpty(note1.getDeadline()) && TextUtils.isEmpty(note2.getDeadline())) {
+                    return -1;
+                }
+
+                if (TextUtils.isEmpty(note1.getDeadline()) && TextUtils.isEmpty(note2.getDeadline())) {
+                    return note1.getCreateDateTime().compareTo(note2.getCreateDateTime());
+                }
+
+                int compRes = 0;
+                try {
+                    compRes = note1.getDeadlineDate().compareTo(note2.getDeadlineDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (compRes == 0) {
+                    return note1.getCreateDateTime().compareTo(note2.getCreateDateTime());
+                }
+                return compRes;
+            }
+        });
+        adapter.setNotes(notes);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

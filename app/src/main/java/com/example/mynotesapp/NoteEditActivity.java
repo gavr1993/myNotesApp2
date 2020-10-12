@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 public class NoteEditActivity extends AppCompatActivity {
     private FileNoteRepository fileNoteRepository;
@@ -25,7 +26,7 @@ public class NoteEditActivity extends AppCompatActivity {
     private EditText deadlineDate;
     private CheckBox checkBox;
     private ImageButton dateBtn;
-    int counter = 1;
+    private String noteId;
     String createDateTime;
     String modifiedDateTime;
 
@@ -57,6 +58,7 @@ public class NoteEditActivity extends AppCompatActivity {
         dateBtn = findViewById(R.id.dateBtn);
         deadlineDate = findViewById(R.id.deadlineDate);
         Intent intent = getIntent();
+        noteId = intent.getStringExtra("idExtr");
         head.setText(intent.getStringExtra("headExtr"));
         text.setText(intent.getStringExtra("textExtr"));
         deadlineDate.setText(intent.getStringExtra("deadlineDateExtr"));
@@ -108,10 +110,13 @@ public class NoteEditActivity extends AppCompatActivity {
         String body = String.valueOf(text.getText());
         createDateTime = date.toString();
         modifiedDateTime = createDateTime;
-        String id = counter + "";
+        String id = UUID.randomUUID().toString();
         String modifiedDateTime = date.toString();
         String deadline = String.valueOf(deadlineDate.getText());
         Note note = new Note(name, body, createDateTime, modifiedDateTime, id, deadline);
+        if (noteId != null) {
+            fileNoteRepository.deleteById(noteId);
+        }
         fileNoteRepository.saveNote(note);
     }
 
@@ -120,13 +125,10 @@ public class NoteEditActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.save:
                 createNote();
-                counter++;
-                Intent intent = new Intent(NoteEditActivity.this, NotesActivity.class);
-                startActivity(intent);
+                finish();
                 return true;
             case R.id.back:
-                Intent intent2 = new Intent(NoteEditActivity.this, NotesActivity.class);
-                startActivity(intent2);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

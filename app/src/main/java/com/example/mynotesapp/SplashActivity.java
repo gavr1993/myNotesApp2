@@ -1,9 +1,9 @@
 package com.example.mynotesapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
     private Keystore keystore;
@@ -17,6 +17,7 @@ public class SplashActivity extends AppCompatActivity {
                 PinEnterActivity.class);
         else intent = new Intent(SplashActivity.this, PrefActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void setKeystore(Keystore keystore) {
